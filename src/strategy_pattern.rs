@@ -13,6 +13,7 @@ pub struct Duck {
 
 pub struct FlyWithWings;
 pub struct FlyNoWay;
+pub struct FlyRocketPowered;
 pub struct Quack;
 pub struct MuteQuack;
 pub struct Squeak;
@@ -29,6 +30,14 @@ impl Duck {
     pub fn swim(&self) {
         println!("All ducks float, even decoys!");
     }
+
+    pub fn set_fly_behaviour(&mut self, fly_behaviour: Box<dyn FlyBehaviour>) {
+        self.fly_behaviour = fly_behaviour;
+    }
+
+    pub fn set_quack_behaviour(&mut self, quack_behaviour: Box<dyn QuackBehaviour>) {
+        self.quack_behaviour = quack_behaviour;
+    }
 }
 
 impl FlyBehaviour for FlyWithWings {
@@ -40,6 +49,12 @@ impl FlyBehaviour for FlyWithWings {
 impl FlyBehaviour for FlyNoWay {
     fn fly(&self) {
         println!("I can't fly");
+    }
+}
+
+impl FlyBehaviour for FlyRocketPowered {
+    fn fly(&self) {
+        println!("I'm flying with a rocket!");
     }
 }
 
